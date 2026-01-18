@@ -4,7 +4,7 @@ import { generateResponse } from '../services/llm';
 import { analyzeSafety } from '../engines/safetyEngine';
 import { logger } from '../utils/logger';
 
-const router = Router();
+const router: Router = Router();
 
 /**
  * POST /ai/respond

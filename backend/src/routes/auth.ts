@@ -4,7 +4,7 @@ import { env } from '../config/env';
 import { logger } from '../utils/logger';
 import { authenticate } from '../middleware/auth';
 
-const router = Router();
+const router: Router = Router();
 
 /**
  * POST /auth/login

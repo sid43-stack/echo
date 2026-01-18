@@ -8,7 +8,7 @@ import { generateResponse } from '../services/llm';
 import { touchSession, getSession } from '../engines/sessionManager';
 import { logger } from '../utils/logger';
 
-const router = Router();
+const router: Router = Router();
 
 // Configure multer for audio file upload
 const upload = multer({

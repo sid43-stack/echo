@@ -3,7 +3,7 @@ import { authenticate } from '../middleware/auth';
 import { startSession, endSession, getSession } from '../engines/sessionManager';
 import { logger } from '../utils/logger';
 
-const router = Router();
+const router: Router = Router();
 
 /**
  * POST /session/start

@@ -20,8 +20,8 @@ export const requestLogger = (
   });
 
   // Override res.end to log response
-  const originalEnd = res.end;
-  res.end = function (chunk?: unknown, encoding?: unknown) {
+  const originalEnd = res.end.bind(res);
+  res.end = function (this: Response, chunk?: unknown, encoding?: BufferEncoding | (() => void), cb?: () => void): Response {
     const duration = Date.now() - startTime;
     logger.info('Request completed', {
       method: req.method,
@@ -29,8 +29,17 @@ export const requestLogger = (
       statusCode: res.statusCode,
       duration: `${duration}ms`,
     });
-    originalEnd.call(this, chunk, encoding);
-  };
+    if (typeof encoding === 'function') {
+      return originalEnd(chunk, encoding);
+    }
+    if (encoding !== undefined && cb !== undefined) {
+      return originalEnd(chunk, encoding, cb);
+    }
+    if (encoding !== undefined) {
+      return originalEnd(chunk, encoding);
+    }
+    return originalEnd(chunk);
+  } as typeof res.end;
 
   next();
 };
