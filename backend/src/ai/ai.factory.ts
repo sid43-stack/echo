@@ -1,30 +1,32 @@
 /**
- * AI Provider Factory
- * Routes chat requests to the appropriate AI provider based on environment configuration.
+ * AI Reply Service
+ * Single provider: Cerebras
+ * This project no longer supports multi-provider routing.
  */
 
-import { env } from '../config/env';
-import { generateChatReply } from './chat.provider';
 import { generateLlamaReply } from './providers/llama.provider';
 import { logger } from '../utils/logger';
 
 /**
- * Get AI reply using the configured provider
- * @param message - User message to send to the AI
- * @returns Assistant's text response
+ * Sends user message to the assistant brain (Cerebras / Llama)
+ * @param message User text
+ * @returns Assistant reply
  */
 export async function getAIReply(message: string): Promise<string> {
-    const provider = env.aiProvider.toLowerCase();
+    logger.info('AI: generating reply via Cerebras');
 
-    logger.info('AI Factory: routing request', { provider });
+    try {
+        const reply = await generateLlamaReply(message);
 
-    switch (provider) {
-        case 'openai':
-            return generateChatReply(message);
-        case 'llama':
-            return generateLlamaReply(message);
-        default:
-            logger.warn('AI Factory: unknown provider, defaulting to OpenAI', { provider });
-            return generateChatReply(message);
+        if (!reply || reply.trim().length === 0) {
+            logger.warn('AI returned empty response');
+            return "I'm here with you. Tell me a little more about what's on your mind.";
+        }
+
+        return reply;
+    } catch (error) {
+        logger.error('AI reply failed', { error });
+
+        return "I’m having a small connection issue right now, but I’m still here with you. Try speaking again.";
     }
 }
