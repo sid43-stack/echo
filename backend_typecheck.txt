@@ -1,0 +1,18 @@
+﻿
+> backend@1.0.0 type-check C:\echo\backend
+> tsc --noEmit
+
+src/ai/stt.provider.ts(21,28): error TS2339: Property 'googleProjectId' does not exist on type 'EnvConfig'.
+src/ai/stt.provider.ts(22,30): error TS2339: Property 'googleApplicationCredentials' does not exist on type 'EnvConfig'.
+src/routes/health.ts(133,53): error TS2307: Cannot find module '../health/health.service' or its corresponding type declarations.
+src/routes/health.ts(159,50): error TS2307: Cannot find module '../health/health.service' or its corresponding type declarations.
+src/routes/voice.ts(49,57): error TS2835: Relative import paths need explicit file extensions in ECMAScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean '../voice/sessionManager.js'?
+src/routes/voice.ts(150,49): error TS2835: Relative import paths need explicit file extensions in ECMAScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean '../voice/sessionManager.js'?
+src/routes/voice.ts(154,67): error TS2835: Relative import paths need explicit file extensions in ECMAScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean '../voice/sessionManager.js'?
+src/routes/voice.ts(184,53): error TS2835: Relative import paths need explicit file extensions in ECMAScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean '../voice/sessionManager.js'?
+src/routes/voice.ts(208,49): error TS2835: Relative import paths need explicit file extensions in ECMAScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean '../voice/sessionManager.js'?
+src/userState/userState.service.ts(120,61): error TS2307: Cannot find module '../blockchain/proof.service' or its corresponding type declarations.
+src/voice/sessionManager.ts(9,28): error TS1479: The current file is a CommonJS module whose imports will produce 'require' calls; however, the referenced file is an ECMAScript module and cannot be imported with 'require'. Consider writing a dynamic 'import("uuid")' call instead.
+  To convert this file to an ECMAScript module, change its file extension to '.mts', or add the field `"type": "module"` to 'C:/echo/backend/package.json'.
+src/voice/sessionManager.ts(159,49): error TS2835: Relative import paths need explicit file extensions in ECMAScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean '../voice/sessionManager.js'?
+ΓÇëELIFECYCLEΓÇë Command failed with exit code 2.

@@ -1,0 +1,132 @@
+#pragma version 10
+txn ApplicationID
+int 0
+==
+bnz main_l19
+txn OnCompletion
+int NoOp
+==
+bnz main_l11
+txn OnCompletion
+int OptIn
+==
+bnz main_l10
+txn OnCompletion
+int CloseOut
+==
+bnz main_l9
+txn OnCompletion
+int UpdateApplication
+==
+bnz main_l8
+txn OnCompletion
+int DeleteApplication
+==
+bnz main_l7
+err
+main_l7:
+txn Sender
+global CreatorAddress
+==
+return
+main_l8:
+txn Sender
+global CreatorAddress
+==
+return
+main_l9:
+int 1
+return
+main_l10:
+int 1
+return
+main_l11:
+txna ApplicationArgs 0
+method "create_record(byte[],uint64)void"
+==
+bnz main_l15
+txna ApplicationArgs 0
+method "get_record_count()uint64"
+==
+bnz main_l14
+err
+main_l14:
+byte "total_records"
+app_global_get
+itob
+log
+int 1
+return
+main_l15:
+txn NumAppArgs
+int 3
+==
+assert
+txna ApplicationArgs 1
+len
+int 0
+>
+assert
+txna ApplicationArgs 2
+btoi
+int 0
+>
+assert
+txn Sender
+txna ApplicationArgs 2
+concat
+int 48
+box_create
+pop
+txn Sender
+txna ApplicationArgs 2
+concat
+int 0
+txna ApplicationArgs 1
+len
+int 32
+>=
+bnz main_l18
+txna ApplicationArgs 1
+int 32
+txna ApplicationArgs 1
+len
+-
+bzero
+concat
+main_l17:
+txna ApplicationArgs 2
+btoi
+itob
+concat
+byte "total_records"
+app_global_get
+int 1
++
+itob
+concat
+box_replace
+byte "total_records"
+byte "total_records"
+app_global_get
+int 1
++
+app_global_put
+int 1
+return
+main_l18:
+txna ApplicationArgs 1
+extract 0 32
+b main_l17
+main_l19:
+byte "app_name"
+byte "Echo Proof"
+app_global_put
+byte "version"
+byte "1.0.0"
+app_global_put
+byte "total_records"
+int 0
+app_global_put
+int 1
+return

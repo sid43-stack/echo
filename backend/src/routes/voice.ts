@@ -1,120 +1,179 @@
+/**
+ * Voice Routes
+ * Handles voice interactions with Browser Speech Recognition
+ */
+
 import { Router, Request, Response } from 'express';
-import multer from 'multer';
+import jwt from 'jsonwebtoken';
 import { authenticate } from '../middleware/auth';
-import { speechToText } from '../services/stt';
-import { textToSpeech } from '../services/tts';
-import { analyzeSafety } from '../engines/safetyEngine';
-import { generateResponse } from '../services/llm';
-import { touchSession, getSession } from '../engines/sessionManager';
+import { env } from '../config/env';
 import { logger } from '../utils/logger';
+import { getActiveVoiceUser, handleVoiceInput, startTypingCapture } from '../voice/sessionManager';
 
 const router: Router = Router();
 
-// Configure multer for audio file upload
-const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: {
-    fileSize: 10 * 1024 * 1024, // 10MB limit
-  },
+/**
+ * POST /voice/input
+ * Receives recognized speech text from browser speech recognition (or legacy internal service)
+ * Processes through conversational pipeline: Text → AI (Text only)
+ *
+ * Auth: accepts JWT (Authorization: Bearer) OR x-internal-key header
+ */
+router.post('/input', async (req: Request, res: Response) => {
+    let userId: string | null = null;
+
+    // --- Auth path 1: JWT from browser client ---
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+        try {
+            const token = authHeader.substring(7);
+            const decoded = jwt.verify(token, env.jwtSecret) as { id: string; email: string };
+            const activeUser = getActiveVoiceUser();
+            if (!activeUser || activeUser !== decoded.id) {
+                return res.status(409).json({ error: "No active voice session" });
+            }
+
+            userId = activeUser;
+
+        } catch {
+            // JWT present but invalid — fall through to internal key check
+        }
+    }
+
+    // --- Auth path 2: x-internal-key (backward compat) ---
+    if (!userId) {
+        const internalKey = req.headers['x-internal-key'];
+        if (internalKey && internalKey === process.env.VOSK_INTERNAL_KEY) {
+            const { getActiveVoiceUser } = await import('../voice/sessionManager');
+            userId = getActiveVoiceUser();
+        }
+    }
+
+    // --- Reject if neither auth method succeeded ---
+    if (!userId) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const { text } = req.body as { text?: unknown };
+
+    if (typeof text !== 'string' || text.trim() === '') {
+        res.status(400).json({ error: 'text is required' });
+        return;
+    }
+
+    try {
+        const result = await handleVoiceInput(userId, text);
+        res.status(200).json(result);
+    } catch (error) {
+        logger.error('Voice input error', {
+            error: error instanceof Error ? error.message : String(error),
+            userId,
+        });
+        res.status(500).json({ error: 'Failed to process voice input' });
+    }
 });
 
 /**
- * POST /voice/process
- * Protected route - requires authentication
- * Requires sessionId in request body
- * Accepts audio file, processes through: audio → STT → safety → AI → TTS → audio
- * Returns audio response (audio/wav)
+ * POST /voice/start-typing
+ * Triggers speech capture for chat mic button
+ * Captures next speech segment and returns text
  */
-router.post(
-  '/process',
-  authenticate,
-  upload.single('audio'),
-  async (req: Request, res: Response) => {
-    try {
-      const { sessionId } = req.body;
-
-      if (!sessionId || typeof sessionId !== 'string') {
-        res.status(400).json({ error: 'Session ID is required' });
+router.post('/start-typing', authenticate, async (req: Request, res: Response) => {
+    const userId = req.user?.id;
+    if (!userId) {
+        res.status(401).json({ error: 'Unauthorized' });
         return;
-      }
-
-      // Verify session exists and belongs to user
-      const session = getSession(sessionId);
-      if (!session) {
-        res.status(404).json({ error: 'Session not found or expired' });
-        return;
-      }
-
-      if (session.userId !== req.user?.id) {
-        res.status(403).json({ error: 'Forbidden' });
-        return;
-      }
-
-      // Update session activity timestamp
-      touchSession(sessionId);
-
-      if (!req.file) {
-        res.status(400).json({ error: 'Audio file is required' });
-        return;
-      }
-
-      const audioBuffer = req.file.buffer;
-
-      logger.info('Voice processing started', {
-        userId: req.user?.id,
-        sessionId,
-        fileSize: audioBuffer.length,
-      });
-
-      // Step 1: Speech-to-Text
-      const transcribedText = await speechToText(audioBuffer);
-
-      logger.info('STT completed', {
-        userId: req.user?.id,
-        text: transcribedText,
-      });
-
-      // Step 2: Safety analysis
-      const safetyAnalysis = analyzeSafety(transcribedText);
-
-      logger.info('Safety analysis completed', {
-        userId: req.user?.id,
-        riskLevel: safetyAnalysis.riskLevel,
-      });
-
-      // Step 3: Determine response text
-      let responseText: string;
-
-      if (safetyAnalysis.riskLevel === 'high') {
-        // High risk: return calm pause message
-        responseText = "I'm here with you. We can pause for a moment if that feels helpful.";
-      } else {
-        // Step 4: Generate AI response
-        responseText = generateResponse(transcribedText);
-      }
-
-      logger.info('AI response generated', {
-        userId: req.user?.id,
-        riskLevel: safetyAnalysis.riskLevel,
-      });
-
-      // Step 5: Text-to-Speech
-      const audioResponse = await textToSpeech(responseText);
-
-      logger.info('TTS completed', {
-        userId: req.user?.id,
-        audioSize: audioResponse.length,
-      });
-
-      // Return audio response
-      res.setHeader('Content-Type', 'audio/wav');
-      res.status(200).send(audioResponse);
-    } catch (error) {
-      logger.error('Voice processing error', { error });
-      res.status(500).json({ error: 'Failed to process voice request' });
     }
-  }
-);
+
+    try {
+        const text = await startTypingCapture(userId);
+        res.status(200).json({ text });
+    } catch (error) {
+        logger.error('Start typing error', {
+            error: error instanceof Error ? error.message : String(error),
+            userId,
+        });
+        res.status(500).json({ error: 'Failed to capture speech' });
+    }
+});
+
+/**
+ * GET /voice/state
+ * Get current voice session state for polling
+ */
+router.get('/state', authenticate, async (req: Request, res: Response) => {
+    const userId = req.user?.id;
+    if (!userId) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+    }
+    const { setActiveVoiceUser } = await import('../voice/sessionManager');
+    setActiveVoiceUser(userId);
+
+    try {
+        const { getSessionState, getPendingReply } = await import('../voice/sessionManager');
+        const state = await getSessionState(userId);
+        const replyText = getPendingReply(userId);
+
+        res.status(200).json({
+            state,
+            replyText,
+        });
+    } catch (error) {
+        logger.error('Get voice state error', {
+            error: error instanceof Error ? error.message : String(error),
+            userId,
+        });
+        res.status(500).json({ error: 'Failed to get voice state' });
+    }
+});
+
+/**
+ * POST /voice/interrupt
+ * Interrupt assistant while speaking
+ */
+router.post('/interrupt', authenticate, async (req: Request, res: Response) => {
+    const userId = req.user?.id;
+    if (!userId) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+    }
+
+    try {
+        const { interruptAssistant } = await import('../voice/sessionManager');
+        interruptAssistant(userId);
+        res.status(200).json({ success: true });
+    } catch (error) {
+        logger.error('Interrupt error', {
+            error: error instanceof Error ? error.message : String(error),
+            userId,
+        });
+        res.status(500).json({ error: 'Failed to interrupt' });
+    }
+});
+
+/**
+ * POST /voice/finish-speaking
+ * Notify backend that audio playback finished
+ */
+router.post('/finish-speaking', authenticate, async (req: Request, res: Response) => {
+    const userId = req.user?.id;
+    if (!userId) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+    }
+
+    try {
+        const { finishSpeaking } = await import('../voice/sessionManager');
+        finishSpeaking(userId);
+        res.status(200).json({ success: true });
+    } catch (error) {
+        logger.error('Finish speaking error', {
+            error: error instanceof Error ? error.message : String(error),
+            userId,
+        });
+        res.status(500).json({ error: 'Failed to mark as finished' });
+    }
+});
 
 export default router;
-

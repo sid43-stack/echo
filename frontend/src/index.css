@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+  DESIGN SYSTEM: NightCompanion - A calm, dark-mode emotional wellness app
+  
+  Color Philosophy:
+  - Deep midnight blues for safety and calm
+  - Soft teal accents for hope and tranquility
+  - Warm amber for gentle highlights and CTAs
+  - Muted lavender for emotional softness
+*/
+
+@layer base {
+  :root {
+    /* Core backgrounds - deep night sky palette */
+    --background: 222 47% 8%;
+    --foreground: 210 40% 96%;
+
+    /* Cards - slightly elevated from background */
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 96%;
+
+    /* Popover/Modal surfaces */
+    --popover: 222 47% 13%;
+    --popover-foreground: 210 40% 96%;
+
+    /* Primary - calming teal for main actions */
+    --primary: 174 62% 47%;
+    --primary-foreground: 222 47% 8%;
+
+    /* Secondary - muted night surface */
+    --secondary: 222 30% 18%;
+    --secondary-foreground: 210 30% 80%;
+
+    /* Muted - for subtle text and borders */
+    --muted: 222 30% 22%;
+    --muted-foreground: 215 20% 55%;
+
+    /* Accent - warm amber for highlights */
+    --accent: 32 95% 55%;
+    --accent-foreground: 222 47% 8%;
+
+    /* Emotional colors */
+    --emotion-calm: 174 62% 47%;
+    --emotion-lonely: 262 47% 63%;
+    --emotion-anxious: 32 95% 55%;
+    --emotion-sad: 210 50% 50%;
+    --emotion-hopeful: 142 62% 47%;
+
+    /* Destructive */
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Borders and inputs */
+    --border: 222 30% 20%;
+    --input: 222 30% 18%;
+    --ring: 174 62% 47%;
+
+    --radius: 1rem;
+
+    /* Gradients */
+    --gradient-night: linear-gradient(135deg, hsl(222 47% 8%) 0%, hsl(240 40% 12%) 100%);
+    --gradient-glow: radial-gradient(circle at center, hsl(174 62% 47% / 0.15) 0%, transparent 70%);
+    --gradient-breathing: radial-gradient(circle, hsl(174 62% 47% / 0.4) 0%, hsl(174 62% 47% / 0.1) 50%, transparent 70%);
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(222 47% 4% / 0.5);
+    --shadow-glow: 0 0 40px hsl(174 62% 47% / 0.2);
+
+    /* Sidebar tokens */
+    --sidebar-background: 222 47% 10%;
+    --sidebar-foreground: 210 40% 90%;
+    --sidebar-primary: 174 62% 47%;
+    --sidebar-primary-foreground: 222 47% 8%;
+    --sidebar-accent: 222 30% 18%;
+    --sidebar-accent-foreground: 210 30% 80%;
+    --sidebar-border: 222 30% 18%;
+    --sidebar-ring: 174 62% 47%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    min-height: 100%;
+    height: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--gradient-night);
+    background-attachment: fixed;
+    min-height: 100%;
+    height: auto;
+  }
+}
+
+@layer components {
+
+  /* Glowing card effect for elevated surfaces */
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-md border border-border/50 rounded-2xl;
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* Breathing animation circle */
+  .breathing-circle {
+    background: var(--gradient-breathing);
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Message bubble styling */
+  .message-user {
+    @apply bg-primary/20 text-foreground rounded-2xl rounded-br-md;
+  }
+
+  .message-ai {
+    @apply bg-secondary text-foreground rounded-2xl rounded-bl-md;
+  }
+
+  /* Gentle pulse for typing indicator */
+  .pulse-gentle {
+    animation: pulseGentle 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Floating animation for ambient elements */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Soft glow effect */
+  .glow {
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+@layer utilities {
+
+  /* Text gradient for headings */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  /* Scrollbar styling for chat */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Custom scrollbar for visible areas */
+  .scrollbar-calm::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-calm::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .scrollbar-calm::-webkit-scrollbar-thumb {
+    @apply bg-muted rounded-full;
+  }
+}
+
+/* Keyframes */
+@keyframes pulseGentle {
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes breatheIn {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+@keyframes breatheOut {
+  0% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+}

@@ -1,0 +1,2 @@
+﻿src/ai/stt.provider.ts(21,28): error TS2339: Property 'googleProjectId' does not exist on type 'EnvConfig'.
+src/ai/stt.provider.ts(22,30): error TS2339: Property 'googleApplicationCredentials' does not exist on type 'EnvConfig'.

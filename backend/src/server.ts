@@ -1,9 +1,10 @@
+import 'dotenv/config';
 import { createApp } from './app';
 import { env } from './config/env';
 import { logger } from './utils/logger';
 
 /**
- * Start the Express server
+ * Start the Express server. CORS and middleware are configured in app.
  */
 const startServer = (): void => {
   const app = createApp();
@@ -35,4 +36,3 @@ const startServer = (): void => {
 
 // Start server
 startServer();
-

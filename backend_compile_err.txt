@@ -1,0 +1,212 @@
+﻿src/ai/stt.provider.ts(21,28): error TS2339: Property 'googleProjectId' does not exist on type 'EnvConfig'.
+src/ai/stt.provider.ts(22,30): error TS2339: Property 'googleApplicationCredentials' does not exist on type 'EnvConfig'.
+src/auth/routes.ts(12,8): error TS2339: Property 'post' does not exist on type 'Router'.
+src/auth/routes.ts(14,43): error TS2339: Property 'body' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/auth/routes.ts(16,11): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/auth/routes.ts(20,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/auth/routes.ts(24,11): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/auth/routes.ts(28,11): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/auth/routes.ts(32,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/auth/routes.ts(40,8): error TS2339: Property 'post' does not exist on type 'Router'.
+src/auth/routes.ts(42,37): error TS2339: Property 'body' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/auth/routes.ts(44,11): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/auth/routes.ts(48,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/auth/routes.ts(52,11): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/auth/routes.ts(56,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/auth/routes.ts(64,8): error TS2339: Property 'get' does not exist on type 'Router'.
+src/auth/routes.ts(66,14): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/auth/routes.ts(67,11): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/auth/routes.ts(70,46): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/auth/routes.ts(72,11): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/auth/routes.ts(75,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/auth/routes.ts(78,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/middleware/auth.ts(30,28): error TS2339: Property 'headers' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/middleware/auth.ts(33,11): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/middleware/auth.ts(45,11): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/middleware/auth.ts(50,7): error TS2349: This expression is not callable.
+  Type 'NextFunction' has no call signatures.
+src/middleware/auth.ts(53,11): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/middleware/auth.ts(57,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/middleware/errorHandler.ts(30,15): error TS2339: Property 'path' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/middleware/errorHandler.ts(31,17): error TS2339: Property 'method' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/middleware/errorHandler.ts(36,7): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/middleware/errorHandler.ts(46,7): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/middleware/errorHandler.ts(48,15): error TS2339: Property 'path' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/middleware/logging.ts(17,17): error TS2339: Property 'method' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/middleware/logging.ts(18,15): error TS2339: Property 'path' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/middleware/logging.ts(19,13): error TS2339: Property 'ip' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/middleware/logging.ts(23,27): error TS2339: Property 'end' does not exist on type 'Response<any, Record<string, any>>'.
+src/middleware/logging.ts(24,7): error TS2339: Property 'end' does not exist on type 'Response<any, Record<string, any>>'.
+src/middleware/logging.ts(27,19): error TS2339: Property 'method' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/middleware/logging.ts(28,17): error TS2339: Property 'path' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/middleware/logging.ts(29,23): error TS2339: Property 'statusCode' does not exist on type 'Response<any, Record<string, any>>'.
+src/middleware/logging.ts(42,19): error TS2339: Property 'end' does not exist on type 'Response<any, Record<string, any>>'.
+src/middleware/logging.ts(44,3): error TS2349: This expression is not callable.
+  Type 'NextFunction' has no call signatures.
+src/routes/assistant.ts(18,8): error TS2339: Property 'get' does not exist on type 'IRouter'.
+src/routes/assistant.ts(23,17): error TS2339: Property 'json' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/assistant.ts(28,13): error TS2339: Property 'json' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/assistant.ts(31,13): error TS2339: Property 'json' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(24,8): error TS2339: Property 'use' does not exist on type 'Router'.
+src/routes/blockchain.ts(32,8): error TS2339: Property 'post' does not exist on type 'Router'.
+src/routes/blockchain.ts(34,28): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/blockchain.ts(35,28): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(37,39): error TS2339: Property 'body' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/blockchain.ts(39,17): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(49,13): error TS2339: Property 'json' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(52,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(60,8): error TS2339: Property 'get' does not exist on type 'Router'.
+src/routes/blockchain.ts(62,28): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/blockchain.ts(63,28): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(68,13): error TS2339: Property 'json' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(71,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(79,8): error TS2339: Property 'post' does not exist on type 'Router'.
+src/routes/blockchain.ts(81,28): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/blockchain.ts(82,28): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(90,13): error TS2339: Property 'json' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(93,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(103,8): error TS2339: Property 'get' does not exist on type 'Router'.
+src/routes/blockchain.ts(105,28): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/blockchain.ts(106,28): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(109,13): error TS2339: Property 'json' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(112,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(120,8): error TS2339: Property 'post' does not exist on type 'Router'.
+src/routes/blockchain.ts(122,28): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/blockchain.ts(123,28): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(125,46): error TS2339: Property 'params' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/blockchain.ts(126,13): error TS2339: Property 'json' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(129,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(137,8): error TS2339: Property 'post' does not exist on type 'Router'.
+src/routes/blockchain.ts(139,28): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/blockchain.ts(140,28): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(142,55): error TS2339: Property 'params' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/blockchain.ts(143,13): error TS2339: Property 'json' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(146,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/blockchain.ts(156,8): error TS2339: Property 'get' does not exist on type 'Router'.
+src/routes/blockchain.ts(157,9): error TS2339: Property 'json' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/call.ts(13,8): error TS2339: Property 'use' does not exist on type 'Router'.
+src/routes/call.ts(15,8): error TS2339: Property 'post' does not exist on type 'Router'.
+src/routes/call.ts(16,22): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/call.ts(18,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/call.ts(24,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/call.ts(27,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/call.ts(31,8): error TS2339: Property 'post' does not exist on type 'Router'.
+src/routes/call.ts(32,22): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/call.ts(34,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/call.ts(38,26): error TS2339: Property 'body' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/call.ts(41,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/call.ts(48,11): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/call.ts(51,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/call.ts(54,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/call.ts(58,8): error TS2339: Property 'get' does not exist on type 'Router'.
+src/routes/call.ts(59,22): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/call.ts(61,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/call.ts(65,26): error TS2339: Property 'params' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/call.ts(68,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/call.ts(75,11): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/call.ts(78,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/call.ts(81,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/call.ts(85,8): error TS2339: Property 'get' does not exist on type 'Router'.
+src/routes/call.ts(86,22): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/call.ts(88,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/call.ts(93,23): error TS2339: Property 'query' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/call.ts(93,50): error TS2339: Property 'query' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/call.ts(95,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/call.ts(98,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/chat.ts(12,8): error TS2339: Property 'use' does not exist on type 'Router'.
+src/routes/chat.ts(18,8): error TS2339: Property 'post' does not exist on type 'Router'.
+src/routes/chat.ts(19,22): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/chat.ts(21,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/chat.ts(25,27): error TS2339: Property 'body' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/chat.ts(28,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/chat.ts(35,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/chat.ts(41,11): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/chat.ts(51,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/chat.ts(59,8): error TS2339: Property 'get' does not exist on type 'Router'.
+src/routes/chat.ts(60,22): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/chat.ts(62,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/chat.ts(67,23): error TS2339: Property 'query' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/chat.ts(67,50): error TS2339: Property 'query' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/chat.ts(70,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/chat.ts(76,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(8,8): error TS2339: Property 'use' does not exist on type 'Router'.
+src/routes/health.ts(14,8): error TS2339: Property 'post' does not exist on type 'Router'.
+src/routes/health.ts(15,22): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/health.ts(17,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(21,36): error TS2339: Property 'body' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/health.ts(24,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(33,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(42,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(44,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(52,8): error TS2339: Property 'get' does not exist on type 'Router'.
+src/routes/health.ts(53,22): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/health.ts(55,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(60,23): error TS2339: Property 'query' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/health.ts(60,50): error TS2339: Property 'query' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/health.ts(62,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(65,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(73,8): error TS2339: Property 'post' does not exist on type 'Router'.
+src/routes/health.ts(74,22): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/health.ts(76,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(80,59): error TS2339: Property 'body' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/health.ts(94,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(104,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(114,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(128,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(140,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(143,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(151,8): error TS2339: Property 'get' does not exist on type 'Router'.
+src/routes/health.ts(152,22): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/health.ts(154,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(161,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/health.ts(164,9): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/system.ts(10,8): error TS2339: Property 'get' does not exist on type 'Router'.
+src/routes/system.ts(13,7): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/system.ts(25,8): error TS2339: Property 'get' does not exist on type 'Router'.
+src/routes/system.ts(26,7): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(22,8): error TS2339: Property 'post' does not exist on type 'Router'.
+src/routes/voice.ts(26,28): error TS2339: Property 'headers' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/voice.ts(33,28): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(45,33): error TS2339: Property 'headers' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/voice.ts(54,20): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(57,26): error TS2339: Property 'body' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/voice.ts(60,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(66,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(72,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(81,8): error TS2339: Property 'post' does not exist on type 'Router'.
+src/routes/voice.ts(82,24): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/voice.ts(84,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(90,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(96,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(104,8): error TS2339: Property 'get' does not exist on type 'Router'.
+src/routes/voice.ts(105,24): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/voice.ts(107,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(118,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(127,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(135,8): error TS2339: Property 'post' does not exist on type 'Router'.
+src/routes/voice.ts(136,24): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/voice.ts(138,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(145,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(151,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(159,8): error TS2339: Property 'post' does not exist on type 'Router'.
+src/routes/voice.ts(160,24): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/routes/voice.ts(162,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(169,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/routes/voice.ts(175,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/server.ts(12,22): error TS2339: Property 'listen' does not exist on type 'Express'.
+src/userState/userState.controller.ts(16,28): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/userState/userState.controller.ts(18,13): error TS2339: Property 'json' does not exist on type 'Response<any, Record<string, any>>'.
+src/userState/userState.controller.ts(21,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/userState/userState.controller.ts(31,28): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/userState/userState.controller.ts(32,62): error TS2339: Property 'body' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/userState/userState.controller.ts(35,17): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/userState/userState.controller.ts(40,17): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/userState/userState.controller.ts(45,13): error TS2339: Property 'json' does not exist on type 'Response<any, Record<string, any>>'.
+src/userState/userState.controller.ts(48,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/userState/userState.controller.ts(58,28): error TS2339: Property 'user' does not exist on type 'Request<core.ParamsDictionary, any, any, core.Query, Record<string, any>>'.
+src/userState/userState.controller.ts(60,13): error TS2339: Property 'json' does not exist on type 'Response<any, Record<string, any>>'.
+src/userState/userState.controller.ts(63,13): error TS2339: Property 'status' does not exist on type 'Response<any, Record<string, any>>'.
+src/userState/userState.routes.ts(13,8): error TS2339: Property 'use' does not exist on type 'IRouter'.
+src/userState/userState.routes.ts(15,8): error TS2339: Property 'get' does not exist on type 'IRouter'.
+src/userState/userState.routes.ts(16,8): error TS2339: Property 'post' does not exist on type 'IRouter'.
+src/userState/userState.routes.ts(17,8): error TS2339: Property 'get' does not exist on type 'IRouter'.

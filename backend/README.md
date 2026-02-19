@@ -1,57 +1,120 @@
 # Echo Backend
 
-Production-ready Node.js backend for Echo - AI Emotional Companion.
+Production-ready Node.js backend for Echo — AI Emotional Companion. Users, JWT auth, AI providers (OpenAI chat + Google Cloud voice), health pipeline; no mocks.
+
+## Environment Variables
+
+**Required:**
+
+- `DATABASE_URL` — PostgreSQL connection string
+- `JWT_SECRET` — Secret for JWT signing (use a long random string in production)
+- `OPENAI_API_KEY` — OpenAI API key for chat (GPT-4.1)
+- `GOOGLE_PROJECT_ID` — Google Cloud project ID
+- `GOOGLE_APPLICATION_CREDENTIALS` — Path to Google Cloud service account JSON
+
+**Optional:**
+
+- `JWT_EXPIRES_IN` (default `7d`)
+- `OPENAI_MODEL` (default `gpt-4o-mini`)
+- `NODE_ENV` (default `development`)
+- `PORT` (required for deployment, default `3000`)
 
 ## Setup
 
-1. Install dependencies:
-```bash
-pnpm install
-```
+1. **Install dependencies:**
 
-2. Copy environment variables:
-```bash
-cp .env.example .env
-```
+   ```bash
+   pnpm install
+   ```
 
-3. Update `.env` with your configuration (especially `JWT_SECRET` for production).
+2. **Configure environment:**
 
-## Development
+   Edit `.env` with your `DATABASE_URL`, `JWT_SECRET`, `OPENAI_API_KEY`, `GOOGLE_PROJECT_ID`, `GOOGLE_APPLICATION_CREDENTIALS`, and `PORT`.
 
-Run the development server with hot reload:
-```bash
-pnpm dev
-```
+3. **Push database schema:**
 
-## Production
+   ```bash
+   pnpm run db:push
+   ```
 
-Build TypeScript:
-```bash
-pnpm build
-```
+4. **Run in development:**
 
-Start the server:
-```bash
-pnpm start
-```
+   ```bash
+   pnpm run dev
+   ```
+
+5. **Build for production:**
+
+   ```bash
+   pnpm run build
+   pnpm start
+   ```
 
 ## API Endpoints
 
-- `GET /health` - Health check endpoint
-- `POST /auth/login` - Login (returns JWT token)
-  - Body: `{ "email": "user@example.com", "password": "password123" }`
-- `GET /auth/me` - Get current user (requires authentication)
-  - Header: `Authorization: Bearer <token>`
+### Auth
 
-## Project Structure
+- `POST /auth/register` — Body: `{ "username", "email", "password" }` → `{ user, token }`
+- `POST /auth/login` — Body: `{ "email", "password" }` → `{ user, token }`
+
+### Chat (Protected)
+
+- `POST /chat/send` — Body: `{ "message" }` → AI provider responds; returns `{ userMessage, assistantMessage }`
+- `GET /chat/history?limit=20` — Returns user-scoped chat history
+
+### Call (Protected)
+
+- `POST /call/start` → Creates call session; returns `{ id, status, startedAt, endedAt }`
+- `POST /call/end` — Body: `{ "callId" }` → Ends call session
+- `GET /call/status/:callId` → Get single call status
+- `GET /call/logs?limit=50` → Get user call logs (ended calls only)
+
+### Health Data (Protected)
+
+- `POST /health/log` — Body: `{ "activityMinutes", "sleepHours", "stressLevel", "moodScore", "socialMinutes" }` → Log health entry
+- `GET /health/history?limit=30` — Returns user health history
+- `GET /health/trends` — Returns computed health trends (7-day aggregates)
+
+### System
+
+- `GET /system/info` — Returns server info (Node version, uptime, etc.)
+- `POST /system/clear-data` — Clears all user data (chat, health, calls) for the authenticated user
+
+## Architecture
 
 ```
-src/
- ├─ server.ts          # Server entry point
- ├─ app.ts             # Express app configuration
- ├─ routes/            # API routes
- ├─ middleware/        # Express middleware
- ├─ config/           # Configuration
- └─ utils/            # Utilities
+backend/
+ ├─ src/
+ │  ├─ ai/             # AI provider integrations (OpenAI, Google Cloud)
+ │  ├─ auth/           # JWT auth service
+ │  ├─ config/         # Environment configuration
+ │  ├─ db/             # Drizzle ORM schema and connection
+ │  ├─ engines/        # Core business logic (chat, call, health, safety, session)
+ │  ├─ middleware/     # Auth middleware and error handlers
+ │  ├─ routes/         # Express route handlers (auth, chat, call, health, system)
+ │  ├─ utils/          # Logger, etc.
+ │  ├─ app.ts          # Express app setup
+ │  └─ server.ts       # Server entry point
+ ├─ package.json
+ ├─ tsconfig.json
+ └─ .env
 ```
 
+## AI Provider Details
+
+### Chat Provider (OpenAI)
+- Model: GPT-4.1 (configurable via `OPENAI_MODEL`)
+- Graceful error handling with fallback messages
+- Concise, empathetic responses
+
+### Voice Providers (Google Cloud)
+- **STT**: Google Cloud Speech-to-Text API
+- **TTS**: Google Cloud Text-to-Speech API (Neural2 voices)
+- Service account authentication via `GOOGLE_APPLICATION_CREDENTIALS`
+
+## Safety
+
+- Input keyword scanning (no LLM escalation yet)
+- Session pause + rate limiting
+- User-scoped data isolation
+- Centralized error handling (no server crashes)
