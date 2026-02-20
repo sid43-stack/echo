@@ -27,6 +27,7 @@ const App = () => (
               <Toaster />
               <Sonner />
               <BrowserRouter>
+              <div className="h-screen w-screen overflow-hidden bg-background">
                 <Routes>
                   <Route path="/" element={<Landing />} />
                   <Route path="/login" element={<Login />} />
@@ -37,6 +38,7 @@ const App = () => (
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
+              </div>
               </BrowserRouter>
             </TooltipProvider>
           </WalletProvider>
