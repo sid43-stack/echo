@@ -15,30 +15,49 @@ import blockchainRoutes from './routes/blockchain';
 
 /**
  * Create and configure Express application.
- * Public: /auth/*, /system/*
- * Protected: /chat, /call, /health, /voice, /user-state, /assistant
  */
 export const createApp = (): Express => {
   const app = express();
 
   /**
    * ================================
-   * 1️⃣ CORS — MUST BE FIRST
+   * 1️⃣ CORS — PRODUCTION SAFE
    * ================================
    */
+
+  const allowedOrigins = [
+    'http://localhost:8080',
+    'http://localhost:5173',
+    'https://echo-2-rb0g.onrender.com', // FRONTEND (VERY IMPORTANT)
+  ];
+
   const corsOptions: cors.CorsOptions = {
-    origin: ['http://localhost:8080', 'http://localhost:5173' , 'https://echo-1-sbv1.onrender.com'],
+    origin: (origin, callback) => {
+      // allow server-to-server, curl, health checks
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      console.warn('Blocked CORS origin:', origin);
+      return callback(new Error('Not allowed by CORS'));
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   };
 
   app.use(cors(corsOptions));
+
+  // VERY IMPORTANT — fixes preflight requests (wallet/login/chat)
   app.options('*', cors(corsOptions));
 
   /**
    * ================================
-   * 2️⃣ Body Parsers (after CORS)
+   * 2️⃣ Body Parsers
    * ================================
    */
   app.use(express.json());
@@ -51,11 +70,9 @@ export const createApp = (): Express => {
    */
   app.use(requestLogger);
 
-
-
   /**
    * ================================
-   * 5️⃣ Routes
+   * 4️⃣ Routes
    * ================================
    */
   app.use('/auth', authRoutes);
@@ -70,7 +87,7 @@ export const createApp = (): Express => {
 
   /**
    * ================================
-   * 6️⃣ Error Handling (ALWAYS LAST)
+   * 5️⃣ Error Handling (LAST)
    * ================================
    */
   app.use(notFoundHandler);
