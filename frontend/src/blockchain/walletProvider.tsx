@@ -1,8 +1,6 @@
 /**
  * Wallet Provider — React context for Algorand Pera Wallet integration.
- *
- * Provides wallet connect/disconnect, address state, and backend sync.
- * Wraps @perawallet/connect SDK.
+ * FIXED: Prevents unauthorized backend calls before login.
  */
 
 import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
@@ -36,13 +34,16 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const [isConnecting, setIsConnecting] = useState(false);
     const peraWalletRef = useRef<PeraWalletConnect | null>(null);
 
+    // IMPORTANT: detect login state
+    const isLoggedIn = () => !!localStorage.getItem('token');
+
     // Initialize Pera Wallet instance
     useEffect(() => {
         peraWalletRef.current = new PeraWalletConnect({
             chainId: 416002, // Algorand Testnet
         });
 
-        // Try to reconnect from previous session
+        // Restore wallet session (local wallet only — SAFE)
         peraWalletRef.current
             .reconnectSession()
             .then((accounts) => {
@@ -52,32 +53,47 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
                 }
             })
             .catch(() => {
-                // No previous session — ignore
+                // no previous wallet session
             });
 
-        // Also check backend for stored wallet
-        api.blockchain.getWallet()
-            .then((data) => {
-                if (data.walletAddress) {
-                    setWalletAddress(data.walletAddress);
-                }
-            })
-            .catch(() => {
-                // Not logged in or endpoint not available
-            });
+        // 🔴 CRITICAL FIX
+        // Only contact backend if user is authenticated
+        if (isLoggedIn()) {
+            api.blockchain.getWallet()
+                .then((data) => {
+                    if (data.walletAddress) {
+                        setWalletAddress(data.walletAddress);
+                    }
+                })
+                .catch(() => {
+                    // ignore — not fatal
+                });
+        }
 
         return () => {
             peraWalletRef.current?.disconnect();
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleDisconnect = useCallback(() => {
         setWalletAddress(null);
-        api.blockchain.disconnectWallet().catch(() => { });
+
+        // Only notify backend if logged in
+        if (isLoggedIn()) {
+            api.blockchain.disconnectWallet().catch(() => { });
+        }
     }, []);
 
     const connectWallet = useCallback(async () => {
         if (!peraWalletRef.current) return;
+
+        // 🔴 prevent wallet connection before login
+        if (!isLoggedIn()) {
+            alert('Please login first before connecting wallet.');
+            return;
+        }
+
         setIsConnecting(true);
 
         try {
@@ -86,14 +102,12 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
                 const address = accounts[0];
                 setWalletAddress(address);
 
-                // Sync with backend
+                // Sync with backend (safe now)
                 await api.blockchain.connectWallet(address);
 
-                // Listen for disconnect
                 peraWalletRef.current.connector?.on('disconnect', handleDisconnect);
             }
         } catch (err) {
-            // User cancelled or error
             console.error('Wallet connect error:', err);
         } finally {
             setIsConnecting(false);
@@ -106,7 +120,10 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         try {
             await peraWalletRef.current.disconnect();
             setWalletAddress(null);
-            await api.blockchain.disconnectWallet();
+
+            if (isLoggedIn()) {
+                await api.blockchain.disconnectWallet();
+            }
         } catch (err) {
             console.error('Wallet disconnect error:', err);
         }
