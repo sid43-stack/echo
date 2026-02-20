@@ -27,7 +27,7 @@ export const createApp = (): Express => {
    * ================================
    */
   const corsOptions: cors.CorsOptions = {
-    origin: ['http://localhost:8080', 'http://localhost:5173'],
+    origin: ['http://localhost:8080', 'http://localhost:5173' , 'https://echo-1-sbv1.onrender.com'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
