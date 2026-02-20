@@ -61,7 +61,7 @@ export default function UserDashboard() {
     const lastInteraction = userState?.lastInteractionAt ?? null;
 
     return (
-        <div className="h-full flex flex-col bg-background relative">
+        <div className="flex flex-col h-full bg-background relative">
             {/* Ambient background */}
             <motion.div
                 className="absolute inset-0 overflow-hidden pointer-events-none"
@@ -74,7 +74,7 @@ export default function UserDashboard() {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl" />
             </motion.div>
 
-            <div className="relative z-10 max-w-2xl mx-auto px-6 py-8 flex flex-col flex-1 min-h-0">
+            <div className="relative z-10 max-w-2xl mx-auto px-6 py-8 flex flex-col flex-1 min-h-0 overflow-y-auto w-full">
                 {/* Top bar */}
                 <motion.div
                     initial={{ opacity: 0, y: -10 }}
