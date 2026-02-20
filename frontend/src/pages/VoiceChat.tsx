@@ -1,3 +1,4 @@
+import { getApiBaseUrl } from '../api/config';
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Mic } from 'lucide-react';
@@ -78,7 +79,8 @@ export function VoiceChat({ onBack, onEndSession }: VoiceChatProps) {
                 const token = localStorage.getItem("token");
                 if (!token) return;
 
-                const response = await fetch('http://localhost:3000/voice/state', {
+                const response = await fetch(`${getApiBaseUrl()}/voice/state`
+, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
