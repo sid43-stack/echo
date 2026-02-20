@@ -7,6 +7,7 @@
  * - Auto-restarts on unexpected end unless manually stopped
  */
 
+import { getApiBaseUrl } from '../api/config';
 import { useState, useRef, useCallback, useEffect } from 'react';
 
 // ---- Web Speech API types (not in lib.dom by default) ----
@@ -42,7 +43,8 @@ function getSpeechRecognitionCtor(): SpeechRecognitionCtor | null {
 
 // -----------------------------------------------------------
 
-const API_URL = 'http://localhost:3000';
+const API_URL = getApiBaseUrl();
+
 
 export interface UseSpeechRecognitionReturn {
     /** Whether the recogniser is currently running */
